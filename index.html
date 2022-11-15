@@ -5,7 +5,38 @@
 <script type="text/javascript">
 
 const ver = 150;
-
+class VoxUnitData
+{
+	constructor(c,x,y,z)
+	{
+		this.color = c;
+		this.x = x;
+		this.y = y;
+		this.z = z;
+	}
+	
+}
+class VoxModelData
+{
+	constructor(body_part,vox_unit_datas)
+	{
+		
+		this.body_part = body_part;
+		this.vox_unit_datas = vox_unit_datas;
+	}
+}
+class UserVoxModelData
+{
+	constructor(address,preview,vox_model_data,server_timestamp , contact_info , owner_name)
+	{
+		this.address = address;
+		this.contact_info = contact_info;
+		this.owner_name = owner_name;
+		this.preview_base64 = preview;
+		this.vox_model_data = vox_model_data;
+		this.server_timestamp = server_timestamp;
+	}
+}
 function write_int32le(bin, pos, val)
 {
     bin[pos + 0] = (val >>  0) & 0xFF;
@@ -623,7 +654,10 @@ function download_json_from_url()
     xmlHttp.send( null );
 
     var src = document.getElementById("src");
-    src.value = xmlHttp.responseText;
+	
+	var Model = JSON.parse(xmlHttp.responseText);
+	
+    src.value = JSON.stringify(Model.vox_model_data.vox_unit_datas);
 
     url_elem.removeAttribute("disabled");
 }
