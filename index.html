@@ -5,6 +5,15 @@
 <script type="text/javascript">
 
 const ver = 150;
+class RawVoxels
+{
+	constructor(i ,c)
+	{
+		this.i = i;
+		
+		this.c = c;
+	}
+}
 class VoxUnitData
 {
 	constructor(c,x,y,z)
@@ -657,7 +666,15 @@ function download_json_from_url()
 	
 	var Model = JSON.parse(xmlHttp.responseText);
 	
-    src.value = JSON.stringify(Model.vox_model_data.vox_unit_datas);
+	var rawVoxs = [];
+	Model.vox_model_data.vox_unit_datas.forEach((element) => {
+		console.log(element)
+		var rawvox = new RawVoxels((element.x * 16 + element.y ) * 16 + z , element.color)
+		rawVoxs.push(rawvox);
+	})
+	
+	
+    src.value = JSON.stringify(rawVoxs);
 
     url_elem.removeAttribute("disabled");
 }
