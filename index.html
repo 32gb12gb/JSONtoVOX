@@ -654,12 +654,14 @@ function trig_convert_json_files()
 function download_json_from_url()
 {
     var url_elem = document.getElementById("url");
+	var realURL = "https://better-space-api.herokuapp.com/api/models/";
     var url = url_elem.value;
+	realURL = realURL + url.substring(0,4) + "/"+url.substring(4);
     var xmlHttp = new XMLHttpRequest();
 
     url_elem.setAttribute("disabled","disabled");
 
-    xmlHttp.open( "GET", url, false ); // false for synchronous request
+    xmlHttp.open( "GET", realURL, false ); // false for synchronous request
     xmlHttp.send( null );
 
     var src = document.getElementById("src");
@@ -734,7 +736,7 @@ function downloadFile(blob, filename, mime) {
         </p>
         <hr>
         <h2>Download JSON text from URL</h2>
-        <p> URL: <input type="text" size="40" id="url" value="https://dev-blocks-ee2af-default-rtdb.firebaseio.com/16x16x16/1653149789_Natali_001.json?pretty=true"></p>
+        <p> ID: <input type="text" size="40" id="url" value="LEGS-NG7wXvpbRQWOKPCB8Eq"></p>
         <button onClick="download_json_from_url();">Download</button>
     </td>
     <td width="50%"><h2>JSON text <u><span id="json_file_name"></span></u></h2><textarea id="src" rows="30" style="width: 100%;"></textarea></td>
